@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'IDRandusService_Example' do
+  pod 'IDRandusService', :path => '../'
+
+  target 'IDRandusService_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

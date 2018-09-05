@@ -1,0 +1,16 @@
+PODS:
+  - IDRandusService (0.1.0)
+
+DEPENDENCIES:
+  - IDRandusService (from `../`)
+
+EXTERNAL SOURCES:
+  IDRandusService:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  IDRandusService: 8777ce3298b7a7feb15af19b01a156c99eccdc1a
+
+PODFILE CHECKSUM: 1f1394a7255b996441763c63422cbf2db3cc8041
+
+COCOAPODS: 1.5.3
