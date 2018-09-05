@@ -23,19 +23,25 @@
                                       dataTaskWithURL:url
                                       completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                                           
-                                          if (data == nil) {
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  errorBlock(error);
-                                              });
-                                          }
-                                          
-                                          NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                                          
+                                          // Server error
                                           if (errorBlock != nil) {
-                                              
                                               if (error != nil) {
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       errorBlock(error);
+                                                  });
+                                                  return;
+                                              }
+                                          }
+                                          
+                                          NSError *serializtionError = nil;
+                                          NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&serializtionError];
+                                          
+                                          // Local errors
+                                          if (errorBlock != nil) {
+                                              
+                                              if (serializtionError != nil) {
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      errorBlock(serializtionError);
                                                   });
                                                   return;
                                               }
@@ -52,6 +58,7 @@
                                               }
                                           }
                                           
+                                          // Success
                                           if (completionBlock != nil) {
                                               
                                               IDRandusPersonObject *person = [self personWithJSON: jsonDict];
