@@ -23,6 +23,12 @@
                                       dataTaskWithURL:url
                                       completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                                           
+                                          if (data == nil) {
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  errorBlock(error);
+                                              });
+                                          }
+                                          
                                           NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                                           
                                           if (errorBlock != nil) {
